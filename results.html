@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+​
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hot Resturant</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    ​
+</head>
+​
+
+<body>
+    ​
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Hot Resturant</h1>
+            <h3>Book your seat before they are all gone!</h3>
+            <hr>
+            <a href="/add"><button class="btn btn-danger btn-lg"><span class="fa fa-plus"></span>Make
+                    Reservation</button></a>
+            <a href="/tables/all"><button class="btn btn-danger btn-lg"><span class="fa fa-eye"></span>View
+                    Tables</button></a>
+        </div>
+        <div class="row">
+            ​
+            <div class="col-12">
+
+
+
+                <!--  add card reservations-->
+                <div class="row">
+    
+                    <div class="col-12">
+              
+                      <div class="card mt-4">
+                        <div class="card-header">
+                          <h3><strong>Current Reservations</strong></h3>
+                        </div>
+                        <div id="reservations"class="card-body">
+                        </div>
+                    </div>
+
+                    <!-- add card  waitlist-->
+            
+                    <div class="card mt-4">
+                        <div class="card-header">
+                          <h3><strong>Waiting List</strong></h3>
+                        </div>
+                        <div id= "waitlist"class="card-body">
+                        </div>
+                      </div>
+                  </div>
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        // $("#search-btn").on("click", function () {
+            // var searchedReservations = $("#reservation-search").val().trim();
+
+            // Using a RegEx Pattern to remove spaces from searchedReservations
+            // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+            // searchedReservations = searchedReservations.replace(/\s+/g, "").toLowerCase();
+
+            $.get("/tables/current", function (data) {
+                console.log(data)
+        
+                for (i = 0; i < data.length; i++) {
+
+                    // console.log(data[i]);
+                    if (data) {
+                        // $("#stats").show();
+                        var dataForReservations = $("<div>");
+                        (dataForReservations).append("Name: "+ data[i].name+ "<br>")+
+                        (dataForReservations).append("Phone: "+ data[i].phone + "<br>")+
+                        (dataForReservations).append("Email: "+ data[i].email+ "<br>")+
+                        (dataForReservations).append("Unique Id: "+ data[i].uniqueID+ "<br>");
+                        $("#reservations").append((dataForReservations)).append("<hr>");
+                    } else {
+                        $("#name").text(
+                            "Sorry no rervations found");
+                            // $("#stats").hide();
+                        }
+                        
+                    } // end  of loop
+      
+            });
+
+            $.get("/tables/reserved", function (data) {
+                console.log(data)
+        
+                for (i = 0; i < data.length; i++) {
+
+                    // console.log(data[i]);
+                    if (data) {
+                        // $("#stats").show();
+                        var dataForReservationsTwo = $("<div>");
+                        (dataForReservationsTwo).append("Name: "+ data[i].name+ "<br>")+
+                        (dataForReservationsTwo).append("Phone: "+ data[i].phone + "<br>")+
+                        (dataForReservationsTwo).append("Email: "+ data[i].email+ "<br>")+
+                        (dataForReservationsTwo).append("Unique Id: "+ data[i].uniqueID+ "<br>");
+                        $("#waitlist").append((dataForReservationsTwo)).append("<hr>");
+                    } else {
+                        $("#name").text(
+                            "Sorry no rervations found");
+                            // $("#stats").hide();
+                        }
+                        
+                    } // end  of loop
+                    // append to card
+                    // reservationsDiv.append(res.json(allReservations));
+                    
+            });
+        // });
+
+
+    </script>
+</body>
+
+</html>
